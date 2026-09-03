@@ -11,13 +11,14 @@ st.set_page_config(
 root = Path(__file__).parent
 html = (root / "index.html").read_text(encoding="utf-8")
 css = (root / "styles.css").read_text(encoding="utf-8")
+reference_css = (root / "reference-overrides.css").read_text(encoding="utf-8")
 js = (root / "script.js").read_text(encoding="utf-8")
 
-# Render the site directly in Streamlit rather than inside an iframe.
-# This removes the nested scrollbar and lets the site's anchor navigation
-# control the browser's normal page scroll.
-html = html.replace('<link rel="stylesheet" href="styles.css">', f'<style>{css}</style>')
-html = html.replace('<link rel="stylesheet" href="styles.css" />', f'<style>{css}</style>')
+# Render directly in Streamlit rather than inside an iframe.
+# This keeps one normal browser scroll and allows the site's anchor navigation.
+combined_css = css + "\n" + reference_css
+html = html.replace('<link rel="stylesheet" href="styles.css">', f'<style>{combined_css}</style>')
+html = html.replace('<link rel="stylesheet" href="styles.css" />', f'<style>{combined_css}</style>')
 html = html.replace('<script src="script.js"></script>', f'<script>{js}</script>')
 html = html.replace('<script src="script.js" defer></script>', f'<script>{js}</script>')
 
