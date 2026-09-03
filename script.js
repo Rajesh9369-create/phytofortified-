@@ -1,5 +1,4 @@
 document.addEventListener('DOMContentLoaded',()=>{
-  // Visual calibration based on the reference recording.
   const style=document.createElement('style');
   style.textContent=`
     html{scroll-behavior:smooth;scroll-padding-top:78px}
@@ -26,6 +25,15 @@ document.addEventListener('DOMContentLoaded',()=>{
     @media(max-width:900px){.nav:before{display:none}.desktop-nav.open{display:flex!important;position:absolute;left:0;right:0;top:78px;padding:18px 5vw;flex-direction:column;gap:15px;background:rgba(247,248,243,.88);backdrop-filter:blur(24px);border-bottom:1px solid #dce2dc}.hero h1{font-size:15vw!important}}
   `;
   document.head.appendChild(style);
+
+  // Use the user-provided reference imagery where it matters most.
+  const root='https://raw.githubusercontent.com/Rajesh9369-create/phytofortified-/main/assets/';
+  const hero=document.querySelector('.hero-photo img');
+  if(hero) hero.src=root+'hero-reference.webp';
+  const moringa=document.querySelector('.ingredient.moringa img');
+  if(moringa) moringa.src='https://tropical.food/wp-content/uploads/2025/04/Harvesting-Moringa-Pods-0.webp';
+  const tulsi=document.querySelector('.ingredient.tulsi img');
+  if(tulsi) tulsi.src='https://i0.wp.com/blog.fusionteas.com/wp-content/uploads/2018/07/Tulsi-Flowers.jpg?fit=1620%2C1080&ssl=1';
 
   const nav=document.querySelector('.desktop-nav');
   const menu=document.querySelector('.menu');
