@@ -26,14 +26,13 @@ document.addEventListener('DOMContentLoaded',()=>{
   `;
   document.head.appendChild(style);
 
-  // Use the user-provided reference imagery where it matters most.
   const root='https://raw.githubusercontent.com/Rajesh9369-create/phytofortified-/main/assets/';
   const hero=document.querySelector('.hero-photo img');
   if(hero) hero.src=root+'hero-reference.webp';
   const moringa=document.querySelector('.ingredient.moringa img');
-  if(moringa) moringa.src='https://tropical.food/wp-content/uploads/2025/04/Harvesting-Moringa-Pods-0.webp';
+  if(moringa) moringa.src=root+'moringa-reference.webp';
   const tulsi=document.querySelector('.ingredient.tulsi img');
-  if(tulsi) tulsi.src='https://i0.wp.com/blog.fusionteas.com/wp-content/uploads/2018/07/Tulsi-Flowers.jpg?fit=1620%2C1080&ssl=1';
+  if(tulsi) tulsi.src=root+'tulsi-reference.webp';
 
   const nav=document.querySelector('.desktop-nav');
   const menu=document.querySelector('.menu');
