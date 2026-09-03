@@ -1,5 +1,4 @@
 import streamlit as st
-import streamlit.components.v1 as components
 from pathlib import Path
 
 st.set_page_config(
@@ -14,7 +13,9 @@ html = (root / "index.html").read_text(encoding="utf-8")
 css = (root / "styles.css").read_text(encoding="utf-8")
 js = (root / "script.js").read_text(encoding="utf-8")
 
-# Inline the local assets so the full website works inside Streamlit's iframe.
+# Render the site directly in Streamlit rather than inside an iframe.
+# This removes the nested scrollbar and lets the site's anchor navigation
+# control the browser's normal page scroll.
 html = html.replace('<link rel="stylesheet" href="styles.css">', f'<style>{css}</style>')
 html = html.replace('<link rel="stylesheet" href="styles.css" />', f'<style>{css}</style>')
 html = html.replace('<script src="script.js"></script>', f'<script>{js}</script>')
@@ -26,10 +27,10 @@ st.markdown(
     #MainMenu, header, footer, [data-testid="stToolbar"] { display:none !important; }
     .block-container { padding:0 !important; max-width:none !important; }
     [data-testid="stAppViewContainer"] { padding:0 !important; }
-    iframe { width:100% !important; border:0 !important; }
+    [data-testid="stHeader"] { display:none !important; }
     </style>
     """,
     unsafe_allow_html=True,
 )
 
-components.html(html, height=7200, scrolling=True)
+st.html(html, unsafe_allow_javascript=True)
