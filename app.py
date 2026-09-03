@@ -9,17 +9,15 @@ html = (root / "index.html").read_text(encoding="utf-8")
 css = (root / "styles.css").read_text(encoding="utf-8")
 js = (root / "script.js").read_text(encoding="utf-8")
 
-# Make the existing static site self-contained inside the Streamlit app.
-html = html.replace('<link rel="stylesheet" href="styles.css" />', f'<style>{css}</style>')
+html = html.replace('<link rel="stylesheet" href="styles.css">', f'<style>{css}</style>')
 html = html.replace('<script src="script.js"></script>', f'<script>{js}</script>')
 
-# Hide Streamlit's own chrome so the PHYTOFORTIFIED interface fills the page.
 st.markdown("""
 <style>
-#MainMenu, header, footer, [data-testid="stToolbar"] {display:none !important;}
-.block-container {padding:0 !important; max-width:none !important;}
-iframe {width:100% !important; border:0 !important;}
+#MainMenu,header,footer,[data-testid="stToolbar"]{display:none!important}
+.block-container{padding:0!important;max-width:none!important}
+iframe{width:100%!important;border:0!important}
 </style>
-""", unsafe_allow_html=True)
+""",unsafe_allow_html=True)
 
-components.html(html, height=3000, scrolling=True)
+components.html(html,height=7200,scrolling=True)
