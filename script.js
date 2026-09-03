@@ -1,5 +1,22 @@
-const revealObserver=new IntersectionObserver(entries=>entries.forEach(entry=>{if(entry.isIntersecting)entry.target.classList.add('visible')}),{threshold:.08});document.querySelectorAll('section,article').forEach(el=>{el.classList.add('reveal');revealObserver.observe(el)});
-const glow=document.querySelector('.cursor-glow');window.addEventListener('pointermove',e=>{if(glow){glow.style.left=e.clientX+'px';glow.style.top=e.clientY+'px'}});
-const menu=document.querySelector('.menu');const nav=document.querySelector('.nav nav');menu?.addEventListener('click',()=>{nav.classList.toggle('open')});
-document.querySelectorAll('a[href^="#"]').forEach(a=>a.addEventListener('click',()=>nav?.classList.remove('open')));
-window.addEventListener('scroll',()=>{document.body.style.setProperty('--scroll',window.scrollY/(document.body.scrollHeight-innerHeight))},{passive:true});
+// PHYTOFORTIFIED interactions — deliberately lightweight so navigation works in Streamlit and normal browsers.
+document.addEventListener('DOMContentLoaded',()=>{
+  const nav=document.querySelector('.desktop-nav');
+  const menu=document.querySelector('.menu');
+  if(menu&&nav){
+    menu.addEventListener('click',()=>nav.classList.toggle('open'));
+    nav.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>nav.classList.remove('open')));
+  }
+
+  // Use native anchor navigation, but account for the fixed/sticky header.
+  document.querySelectorAll('a[href^="#"]').forEach(a=>{
+    a.addEventListener('click',e=>{
+      const id=a.getAttribute('href');
+      const target=document.querySelector(id);
+      if(!target)return;
+      e.preventDefault();
+      const top=target.getBoundingClientRect().top+window.scrollY-82;
+      window.scrollTo({top,behavior:'smooth'});
+      history.replaceState(null,'',id);
+    });
+  });
+});
